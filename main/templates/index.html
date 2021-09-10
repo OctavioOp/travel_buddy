@@ -19,9 +19,10 @@
   <tbody>
     {% for trip in user_trip %}
     <tr>
-      <td><a href="">{{trip.destination}} / {{trip.description}}</a></td>
+      <td><a href="/view/{{trip.id}}">{{trip.destination}}</a></td>
       <td>{{trip.travel_date_from}}</td>
       <td>{{trip.travel_date_to}}</td>
+      <td>{{trip.description}}</td>
       <td><a href="">Cacelar</a>
         <a href="travels_delete/{{trip.id}}">Borrar</a>
       </td>
@@ -48,7 +49,7 @@
     {% for join in all_join%}
     <tr>
       <td>{{join.creator.username}}</td>
-      <td><a href="">{{join.destination}} / {{join.description}}</a></td>
+      <td><a href="/view/{{join.id}}">{{join.destination}} / {{join.description}}</a></td>
       <td>{{join.travel_date_from}}</td>
       <td>{{join.travel_date_to}}</td>
       <td><a href="">Unirse!</a></td>

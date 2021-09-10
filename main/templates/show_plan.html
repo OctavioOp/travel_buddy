@@ -2,5 +2,33 @@
 
 {% block titulo %}traveller trip{% endblock %}
 
+{% block nav %}
+<div class="d-flex ms-auto">
+    <a href="/" class="btn btn-outline-warning me-2">Home</a>
+    <a class="btn btn-outline-success" href="/logout">Logout</a>
+  </div>
+{% endblock %}
+
 {% block contenido %}
+<div class="container">
+    <h3 class="my-3">{{trip.destination}}, {{trip.description}}</h3>
+    <h4>Planeado por: {{trip.creator.username}}</h4>
+    <h4>Descripcion: {{trip.description}}</h4>
+    <h5>Fecha de inicio: {{trip.travel_date_from}}</h5>
+    <h5>Fecha de termino: {{trip.travel_date_to}}</h5>
+
+
+
+    <h3 class="my-5">Otras personas que se uniran!</h3>
+    {% for pass in trip.join_trip.all%}
+    <p>{{pass.username}}</p>
+    {%empty%}
+    <p>lastima, nadie se ha querido viajar contigo</p>
+    {% endfor %}
+
+</div>
+
+
+
+
 {% endblock %}
