@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block titulo %}traveller trip{% endblock %}
+
+{% block contenido %}
+<h1>Bienvenid@: {{request.session.user.username}}</h1>
+
+<h3>Tus planes de viaje!</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Destino</th>
+      <th scope="col">Fecha de comienzo</th>
+      <th scope="col">Fecha de termino</th>
+      <th scope="col">Plan/detalles</th>
+      <th>Accion(es)</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for trip in user_trip %}
+    <tr>
+      <td><a href="">{{trip.destination}} / {{trip.description}}</a></td>
+      <td>{{trip.travel_date_from}}</td>
+      <td>{{trip.travel_date_to}}</td>
+      <td><a href="">Cacelar</a>
+        <a href="travels_delete/{{trip.id}}">Borrar</a>
+      </td>
+    </tr>
+    {% empty %}
+    <p>nothing to show:C</p>
+    {%endfor%}
+
+  </tbody>
+</table>
+
+<h3 my-3>Planes que te puedes unir!</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Creador</th>
+      <th scope="col">Destino</th>
+      <th scope="col">Fecha de comienzo</th>
+      <th scope="col">Fecha de termino</th>
+      <th>Accion(es)</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for join in all_join%}
+    <tr>
+      <td>{{join.creator.username}}</td>
+      <td><a href="">{{join.destination}} / {{join.description}}</a></td>
+      <td>{{join.travel_date_from}}</td>
+      <td>{{join.travel_date_to}}</td>
+      <td><a href="">Unirse!</a></td>
+    </tr>
+    {% empty %}
+    <p>nothing to show:C</p>
+    {%endfor%}
+  </tbody>
+</table>
+<a href="/travels/add" class="btn btn-secondary">Agrega nueva planeacion</a>
+{% endblock %}
+
+{% block libreria %}
+{% endblock %}

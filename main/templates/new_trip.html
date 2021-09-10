@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+{% block titulo %}traveller trip{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <form action="/travels/add" method="POST">
+        {% csrf_token %}
+        <div class="my-3">
+            <p>Destino:</p>
+            <input type="text" name="destino" id="destino" required>
+        </div>
+        <div class="my-3">
+            <p>Descripción:</p>
+            <input type="text" name="desc" id="desc" placeholder="opcional">
+        </div>
+        <div class="my-3">
+            <p>Fecha inicio:</p>
+            <input type="date" name="fecha_inicio" id="fecha_inicio" min="{{now}}" required>
+        </div>
+        <div class="my-3">
+            <p>Fecha termino:</p>
+            <input type="date" name="fecha_termino" id="fecha_termino" min="{{now}}" required>
+        </div>
+        <button class="btn btn-success" type="submit">Crear!</button>
+    </form>
+</div>
+{% endblock %}
