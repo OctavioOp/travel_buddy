@@ -21,7 +21,9 @@
 
     <h3 class="my-5">Otras personas que se uniran!</h3>
     {% for pass in trip.join_trip.all%}
+    {% if trip.creator.id != request.session.user.id %}
     <p>{{pass.username}}</p>
+    {% endif %}
     {%empty%}
     <p>lastima, nadie se ha querido viajar contigo</p>
     {% endfor %}
