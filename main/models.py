@@ -51,7 +51,7 @@ class User(models.Model):
     def __repr__(self):
         return f"{self.name}"
 
-class plan_trip(models.Model):
+class Plan_trip(models.Model):
     destination = models.CharField(max_length=255)
     description = models.TextField()
     travel_date_from = models.DateField()

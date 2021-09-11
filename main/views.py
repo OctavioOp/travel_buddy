@@ -3,14 +3,14 @@ from django.shortcuts import redirect, render
 import bcrypt
 from .decorators import login_required
 from datetime import date,datetime
-from .models import User, plan_trip
+from .models import User, Plan_trip
 
 
 @login_required
 def index(request):
-    all_user_trips = plan_trip.objects.all().filter(creator__id = request.session['user']['id']) 
-    that_u_join =  plan_trip.objects.all().filter(join_trip__id = request.session['user']['id'])
-    all_join = plan_trip.objects.exclude(join_trip__id =  request.session['user']['id'])
+    all_user_trips = Plan_trip.objects.all().filter(creator__id = request.session['user']['id']) 
+    that_u_join =  Plan_trip.objects.all().filter(join_trip__id = request.session['user']['id'])
+    all_join = Plan_trip.objects.exclude(join_trip__id =  request.session['user']['id'])
     context = {
         'user_trip': all_user_trips,
         'another': that_u_join,
@@ -48,7 +48,7 @@ def new_trip(request):
         return redirect('/travels/add')
 
     traer_user = User.objects.get(id = request.session['user']['id'])
-    new_plan = plan_trip.objects.create(
+    new_plan = Plan_trip.objects.create(
         destination = destino, 
         description = descripcion, 
         travel_date_from = inicio, 
@@ -63,7 +63,7 @@ def new_trip(request):
 @login_required
 def delete_plan(request,id_p):
     id_user = request.session['user']['id']
-    plan = plan_trip.objects.get(id = id_p)
+    plan = Plan_trip.objects.get(id = id_p)
     if id_user == plan.creator.id:
         plan.delete()
         messages.success(request,'Se elimino el plan de viaje')
@@ -73,7 +73,7 @@ def delete_plan(request,id_p):
 
 @login_required
 def show_details(request,id_p):
-    bring_plan = plan_trip.objects.get(id = id_p)
+    bring_plan = Plan_trip.objects.get(id = id_p)
     data = {
         'trip': bring_plan
     }
@@ -81,7 +81,7 @@ def show_details(request,id_p):
 
 @login_required
 def join_trip(request,id_p):
-    bring_plan =  plan_trip.objects.get(id = id_p)
+    bring_plan =  Plan_trip.objects.get(id = id_p)
     id_user = request.session['user']['id']
     bring_user = User.objects.get(id = id_user)
 
@@ -92,7 +92,7 @@ def join_trip(request,id_p):
 
 @login_required
 def left_trip(request,id_p):
-    bring_plan = plan_trip.objects.get(id = id_p)
+    bring_plan = Plan_trip.objects.get(id = id_p)
     bring_user = User.objects.get(id = request.session['user']['id'])
     bring_plan.join_trip.remove(bring_user)
     bring_plan.save()
