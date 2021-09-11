@@ -66,7 +66,7 @@ def delete_plan(request,id_p):
     plan = plan_trip.objects.get(id = id_p)
     if id_user == plan.creator.id:
         plan.delete()
-        messages.success(request,'Appointment deleted')
+        messages.success(request,'Se elimino el plan de viaje')
         return redirect('/')
     messages.error(request,'No puedes eliminar el plan de viaje de los demas')
     return redirect('/')
@@ -97,7 +97,7 @@ def left_trip(request,id_p):
     bring_plan.join_trip.remove(bring_user)
     bring_plan.save()
  
-    messages.success(request, 'Te saliste de este viaje correctamente')
+    messages.success(request,'Te saliste de este viaje correctamente')
     return redirect('/')
 
     
