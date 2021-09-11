@@ -23,14 +23,26 @@
       <td>{{trip.travel_date_from}}</td>
       <td>{{trip.travel_date_to}}</td>
       <td>{{trip.description}}</td>
-      <td><a href="">Cacelar</a>
-        <a href="travels_delete/{{trip.id}}">Borrar</a>
+      <td><a href="/travels_exit/{{trip.id}}">Cacelar</a>
+        <a href="/travels_delete/{{trip.id}}">Borrar</a>
       </td>
     </tr>
     {% empty %}
     <p>nothing to show:C</p>
     {%endfor%}
-
+    {% for trip in another %}
+    <tr>
+      <td><a href="/view/{{trip.id}}">{{trip.destination}}</a></td>
+      <td>{{trip.travel_date_from}}</td>
+      <td>{{trip.travel_date_to}}</td>
+      <td>{{trip.description}}</td>
+      <td><a href="/travels_exit/{{trip.id}}">Cacelar</a>
+        <a href="/travels_delete/{{trip.id}}">Borrar</a>
+      </td>
+    </tr>
+    {% empty %}
+    <p></p>
+    {%endfor%}
   </tbody>
 </table>
 

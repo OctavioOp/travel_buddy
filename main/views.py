@@ -8,10 +8,12 @@ from .models import User, plan_trip
 
 @login_required
 def index(request):
-    all_user_trips = plan_trip.objects.filter(creator__id = request.session['user']['id'])
+    all_user_trips = plan_trip.objects.all().filter(creator__id = request.session['user']['id']) 
+    that_u_join =  plan_trip.objects.all().filter(join_trip__id = request.session['user']['id'])
     all_join = plan_trip.objects.exclude(creator__id =  request.session['user']['id'])
     context = {
         'user_trip': all_user_trips,
+        'another': that_u_join,
         'all_join': all_join
     }
     return render(request, 'index.html', context)
@@ -84,6 +86,16 @@ def join_trip(request,id_p):
     bring_plan.join_trip.add(bring_user)
     bring_plan.save()
     messages.success(request, 'Incorporacion al viaje correctamente')
+    return redirect('/')
+
+@login_required
+def left_trip(request,id_p):
+    bring_plan = plan_trip.objects.get(id = id_p)
+    bring_user = User.objects.get(id = request.session['user']['id'])
+    bring_plan.join_trip.remove(bring_user)
+    bring_plan.save()
+ 
+    messages.success(request, 'Te saliste de este viaje correctamente')
     return redirect('/')
 
     
