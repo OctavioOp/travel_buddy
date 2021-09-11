@@ -8,11 +8,11 @@ from .models import User, plan_trip
 
 @login_required
 def index(request):
-   # all_user_trips = plan_trip.objects.all().filter(creator__id = request.session['user']['id']) 
+    all_user_trips = plan_trip.objects.all().filter(creator__id = request.session['user']['id']) 
     that_u_join =  plan_trip.objects.all().filter(join_trip__id = request.session['user']['id'])
     all_join = plan_trip.objects.exclude(join_trip__id =  request.session['user']['id'])
     context = {
-     #   'user_trip': all_user_trips,
+        'user_trip': all_user_trips,
         'another': that_u_join,
         'all_join': all_join
     }
