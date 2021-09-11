@@ -10,7 +10,7 @@ from .models import User, plan_trip
 def index(request):
     all_user_trips = plan_trip.objects.all().filter(creator__id = request.session['user']['id']) 
     that_u_join =  plan_trip.objects.all().filter(join_trip__id = request.session['user']['id'])
-    all_join = plan_trip.objects.exclude(creator__id =  request.session['user']['id'])
+    all_join = plan_trip.objects.exclude(join_trip__id =  request.session['user']['id'])
     context = {
         'user_trip': all_user_trips,
         'another': that_u_join,
@@ -53,8 +53,10 @@ def new_trip(request):
         description = descripcion, 
         travel_date_from = inicio, 
         travel_date_to = termino,
-        creator= traer_user
+        creator= traer_user,
         )
+    new_plan.join_trip.add(traer_user)
+    new_plan.save()
     messages.success(request,'plan creado con exito!')
     return redirect('/')
 
