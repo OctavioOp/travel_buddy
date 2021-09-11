@@ -75,6 +75,16 @@ def show_details(request,id_p):
     }
     return render(request,'show_plan.html', data)
 
+@login_required
+def join_trip(request,id_p):
+    bring_plan =  plan_trip.objects.get(id = id_p)
+    id_user = request.session['user']['id']
+    bring_user = User.objects.get(id = id_user)
+
+    bring_plan.join_trip.add(bring_user)
+    bring_plan.save()
+    messages.success(request, 'Incorporacion al viaje correctamente')
+    return redirect('/')
 
     
     
